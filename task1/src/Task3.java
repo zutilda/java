@@ -25,5 +25,4 @@ public class Task3 {
             System.out.print(array[i] + " ");
         }
     }
-
 }

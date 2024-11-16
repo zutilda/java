@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "StudentList",
+            "request": "launch",
+            "mainClass": "StudentList",
+            "projectName": "task1_2b169d1f"
+        },
+        {
+            "type": "java",
+            "name": "StudentArray",
+            "request": "launch",
+            "mainClass": "StudentArray",
+            "projectName": "task1_2b169d1f"
+        },
+        {
+            "type": "java",
+            "name": "Student",
+            "request": "launch",
+            "mainClass": "Student",
+            "projectName": "task1_2b169d1f"
+        },
+        {
+            "type": "java",
             "name": "Task4",
             "request": "launch",
             "mainClass": "Task4",

@@ -14,5 +14,4 @@ public class Lab2 {
         double d = (max - 2 * min) / (Math.sin(2) + (max / min));
         System.out.println("result:" + d);
     }
-
 }

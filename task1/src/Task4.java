@@ -26,9 +26,7 @@ public class Task4 {
                     min = matrix[i][j];
                     minIndex = i;
                 }
-
             }
-
             array[j] = min;
             System.out.print(array[j] + " ");
         }
