@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,7 +60,7 @@ class Student {
     @Override
     public String toString() {
         return String.format(
-                "Номер зачётной книжки: %s, Фамилия: %s, Имя: %s, Группа: %s, Кафедра: %s, Дисциплина: %s, Оценка: %d, Преподаватель: %s",
+                "Score of the certificate: %s, Surname: %s, Name: %s, Group: %s, Department: %s, Subject: %s, Assessmante: %d, Teacher: %s",
                 idStudent, fam, name, group, department, discipline, mark, nameTeacher);
     }
 }
@@ -85,7 +86,7 @@ class FullTimeStudent extends Student {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(", Балл ЕГЭ: %d, Средний балл аттестата: %.2f",
+        return super.toString() + String.format(", Score USE: %d, The average score of the certificate: %.2f",
                 egeScore, averageCertificateScore);
     }
 }
@@ -118,7 +119,7 @@ class PartTimeStudent extends Student {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(", Место работы: %s, Должность: %s, Сумма обучения: %.2f",
+        return super.toString() + String.format(", Work place: %s, Post: %s, Education price: %.2f",
                 workPlace, position, tuitionFee);
     }
 }
@@ -145,7 +146,7 @@ class TargetedStudent extends Student {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(", Целевое предприятие: %s, Сумма обучения: %.2f",
+        return super.toString() + String.format(", Targeted company: %s, Education price: %.2f",
                 enterpriseName, tuitionFee);
     }
 }
@@ -157,40 +158,42 @@ class StudentList {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\nМеню:");
-            System.out.println("1. Добавить студента очного отделения");
-            System.out.println("2. Добавить студента заочного отделения");
-            System.out.println("3. Добавить студента целевого обучения");
-            System.out.println("4. Печать списка студентов");
-            System.out.println("5. Сортировка по фамилии и баллам ЕГЭ");
-            System.out.println("6. Выйти");
-            System.out.print("Выберите пункт меню: ");
+            System.out.println("\nMenu:");
+            System.out.println("1. Add full time student");
+            System.out.println("2. Add part time student");
+            System.out.println("3. Add targeted student");
+            System.out.println("4. Print the list of student");
+            System.out.println("5. Sort by Surname and score USE");
+            System.out.println("6. Save list to file");
+            System.out.println("7. Exite");
+            System.out.print("Select menu item: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1: {
-                    System.out.print("Введите фамилию: ");
+                    System.out.print("Enter surname: ");
                     String fam = scanner.nextLine();
-                    System.out.print("Введите имя: ");
+                    System.out.print("Enter name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Введите номер зачётной книжки: ");
+                    System.out.print("Enter faculty number: ");
                     String id = scanner.nextLine();
-                    System.out.print("Введите группу: ");
+                    System.out.print("Enter group: ");
                     String group = scanner.nextLine();
-                    System.out.print("Введите кафедру: ");
+                    System.out.print("Enter department: ");
                     String department = scanner.nextLine();
-                    System.out.print("Введите дисциплину: ");
+                    System.out.print("Enter subject: ");
                     String discipline = scanner.nextLine();
-                    System.out.print("Введите оценку: ");
+                    System.out.print("Enter assessment: ");
                     int mark = scanner.nextInt();
-                    System.out.print("Введите балл ЕГЭ: ");
+                    scanner.nextLine();
+                    System.out.print("Enter USE score: ");
                     int egeScore = scanner.nextInt();
-                    System.out.print("Введите средний балл аттестата: ");
+                    System.out.print("Enter the average score of the certificate: ");
                     double avgScore = scanner.nextDouble();
                     scanner.nextLine();
-                    System.out.print("Введите фамилию преподавателя: ");
+                    System.out.print("Enter theacher surname: ");
                     String teacher = scanner.nextLine();
 
                     students.add(new FullTimeStudent(id, fam, name, group, department, discipline, mark,
@@ -198,29 +201,29 @@ class StudentList {
                     break;
                 }
                 case 2: {
-                    System.out.print("Введите фамилию: ");
+                    System.out.print("Enter surname: ");
                     String fam = scanner.nextLine();
-                    System.out.print("Введите имя: ");
+                    System.out.print("Enter name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Введите номер зачётной книжки: ");
+                    System.out.print("Enter faculty number: ");
                     String id = scanner.nextLine();
-                    System.out.print("Введите группу: ");
+                    System.out.print("Enter group: ");
                     String group = scanner.nextLine();
-                    System.out.print("Введите кафедру: ");
+                    System.out.print("Enter department: ");
                     String department = scanner.nextLine();
-                    System.out.print("Введите дисциплину: ");
+                    System.out.print("Enter subject: ");
                     String discipline = scanner.nextLine();
-                    System.out.print("Введите оценку: ");
+                    System.out.print("Enter assessment: ");
                     int mark = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.print("Введите место работы: ");
+                    System.out.print("Enter work place: ");
                     String workPlace = scanner.nextLine();
-                    System.out.print("Введите должность: ");
+                    System.out.print("Enter post: ");
                     String position = scanner.nextLine();
-                    System.out.print("Введите сумму обучения: ");
+                    System.out.print("Enter education price: ");
                     double tuitionFee = scanner.nextDouble();
                     scanner.nextLine();
-                    System.out.print("Введите фамилию преподавателя: ");
+                    System.out.print("Enter theacher surname: ");
                     String teacher = scanner.nextLine();
 
                     students.add(new PartTimeStudent(id, fam, name, group, department, discipline, mark,
@@ -228,27 +231,27 @@ class StudentList {
                     break;
                 }
                 case 3: {
-                    System.out.print("Введите фамилию: ");
+                    System.out.print("Enter surname: ");
                     String fam = scanner.nextLine();
-                    System.out.print("Введите имя: ");
+                    System.out.print("Enter name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Введите номер зачётной книжки: ");
+                    System.out.print("Enter faculty number: ");
                     String id = scanner.nextLine();
-                    System.out.print("Введите группу: ");
+                    System.out.print("Enter group: ");
                     String group = scanner.nextLine();
-                    System.out.print("Введите кафедру: ");
+                    System.out.print("Enter department: ");
                     String department = scanner.nextLine();
-                    System.out.print("Введите дисциплину: ");
+                    System.out.print("Enter subject: ");
                     String discipline = scanner.nextLine();
-                    System.out.print("Введите оценку: ");
+                    System.out.print("Enter assessment: ");
                     int mark = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.print("Введите название целевого предприятия: ");
+                    System.out.print("Enter target company name: ");
                     String enterprise = scanner.nextLine();
-                    System.out.print("Введите сумму обучения: ");
+                    System.out.print("Enter education price: ");
                     double tuitionFee = scanner.nextDouble();
                     scanner.nextLine();
-                    System.out.print("Введите фамилию преподавателя: ");
+                    System.out.print("Enter theacher surname: ");
                     String teacher = scanner.nextLine();
 
                     students.add(new TargetedStudent(id, fam, name, group, department, discipline, mark,
@@ -257,7 +260,7 @@ class StudentList {
                 }
                 case 4: {
                     if (students.isEmpty()) {
-                        System.out.println("Список студентов пуст.");
+                        System.out.println("The list student is empty.");
                     } else {
                         for (Student student : students) {
                             System.out.println(student);
@@ -269,7 +272,7 @@ class StudentList {
                     sortByFamAndEgeScore(students);
 
                     if (students.isEmpty()) {
-                        System.out.println("Список студентов пуст.");
+                        System.out.println("The list student is empty.");
                     } else {
                         for (Student student : students) {
                             System.out.println(student);
@@ -277,15 +280,22 @@ class StudentList {
                     }
                     break;
                 }
-                case 6:
+                case 6: {
+                    System.out.print("Enter File Name to save: ");
+                    String fileName = scanner.nextLine();
+                    saveStudentsToFile(students, fileName);
+                    break;
+                }
+                case 7: {
                     exit = true;
                     break;
+                }
                 default:
-                    System.out.println("Неверный выбор. Попробуйте снова.");
+                    System.out.println("Try again.");
             }
         }
 
-        System.out.println("Программа завершена.");
+        System.out.println("Program completed.");
         scanner.close();
     }
 
@@ -305,6 +315,18 @@ class StudentList {
             }
             return 0;
         });
-        System.out.println("Список студентов отсортирован по фамилии и баллу ЕГЭ.");
+        System.out.println("List is sort by surname and score USE.");
     }
+
+    private static void saveStudentsToFile(List<Student> students, String fileName) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            for (Student student : students) {
+                writer.println(student.toString());
+            }
+            System.out.println("List save to: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
 }
