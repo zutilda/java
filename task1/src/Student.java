@@ -165,7 +165,8 @@ class StudentList {
             System.out.println("4. Print the list of student");
             System.out.println("5. Sort by Surname and score USE");
             System.out.println("6. Save list to file");
-            System.out.println("7. Exite");
+            System.out.println("7. Download from file");
+            System.out.println("8. Exite");
             System.out.print("Select menu item: ");
 
             int choice = scanner.nextInt();
@@ -287,9 +288,14 @@ class StudentList {
                     break;
                 }
                 case 7: {
-                    exit = true;
+                    System.out.print("Enter File Name to download: ");
+                    String fileName = scanner.nextLine();
+                    students = loadStudentsFromFile(fileName);
                     break;
                 }
+                case 8:
+                    exit = true;
+                    break;
                 default:
                     System.out.println("Try again.");
             }
@@ -321,12 +327,103 @@ class StudentList {
     private static void saveStudentsToFile(List<Student> students, String fileName) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             for (Student student : students) {
-                writer.println(student.toString());
+                if (student instanceof FullTimeStudent) {
+                    FullTimeStudent fts = (FullTimeStudent) student;
+                    writer.printf("FullTimeStudent;%s;%s;%s;%s;%s;%s;%d;%s;%d;%.2f\n",
+                            fts.getIdStudent(), fts.getFam(), fts.getName(), fts.getGroup(),
+                            fts.getDepartment(), fts.getDiscipline(), fts.getMark(),
+                            fts.getNameTeacher(), fts.getEgeScore(), fts.getAverageCertificateScore());
+                } else if (student instanceof PartTimeStudent) {
+                    PartTimeStudent pts = (PartTimeStudent) student;
+                    writer.printf("PartTimeStudent;%s;%s;%s;%s;%s;%s;%d;%s;%s;%s;%.2f\n",
+                            pts.getIdStudent(), pts.getFam(), pts.getName(), pts.getGroup(),
+                            pts.getDepartment(), pts.getDiscipline(), pts.getMark(),
+                            pts.getNameTeacher(), pts.getWorkPlace(), pts.getPosition(), pts.getTuitionFee());
+                } else if (student instanceof TargetedStudent) {
+                    TargetedStudent ts = (TargetedStudent) student;
+                    writer.printf("TargetedStudent;%s;%s;%s;%s;%s;%s;%d;%s;%s;%.2f\n",
+                            ts.getIdStudent(), ts.getFam(), ts.getName(), ts.getGroup(),
+                            ts.getDepartment(), ts.getDiscipline(), ts.getMark(),
+                            ts.getNameTeacher(), ts.getEnterpriseName(), ts.getTuitionFee());
+                }
             }
-            System.out.println("List save to: " + fileName);
+            System.out.println("List of student save to file: " + fileName);
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
 
+    private static List<Student> loadStudentsFromFile(String fileName) {
+        List<Student> students = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 0)
+                    continue;
+
+                String type = parts[0];
+                switch (type) {
+                    case "FullTimeStudent": {
+                        if (parts.length != 11)
+                            break;
+                        String id = parts[1];
+                        String fam = parts[2];
+                        String name = parts[3];
+                        String group = parts[4];
+                        String department = parts[5];
+                        String discipline = parts[6];
+                        int mark = Integer.parseInt(parts[7]);
+                        String teacher = parts[8];
+                        int egeScore = Integer.parseInt(parts[9]);
+                        double avgScore = Double.parseDouble(parts[10]);
+                        students.add(new FullTimeStudent(id, fam, name, group, department, discipline, mark, teacher,
+                                egeScore, avgScore));
+                        break;
+                    }
+                    case "PartTimeStudent": {
+                        if (parts.length != 12)
+                            break;
+                        String id = parts[1];
+                        String fam = parts[2];
+                        String name = parts[3];
+                        String group = parts[4];
+                        String department = parts[5];
+                        String discipline = parts[6];
+                        int mark = Integer.parseInt(parts[7]);
+                        String teacher = parts[8];
+                        String workPlace = parts[9];
+                        String position = parts[10];
+                        double tuitionFee = Double.parseDouble(parts[11]);
+                        students.add(new PartTimeStudent(id, fam, name, group, department, discipline, mark, teacher,
+                                workPlace, position, tuitionFee));
+                        break;
+                    }
+                    case "TargetedStudent": {
+                        if (parts.length != 11)
+                            break;
+                        String id = parts[1];
+                        String fam = parts[2];
+                        String name = parts[3];
+                        String group = parts[4];
+                        String department = parts[5];
+                        String discipline = parts[6];
+                        int mark = Integer.parseInt(parts[7]);
+                        String teacher = parts[8];
+                        String enterprise = parts[9];
+                        double tuitionFee = Double.parseDouble(parts[10]);
+                        students.add(new TargetedStudent(id, fam, name, group, department, discipline, mark, teacher,
+                                enterprise, tuitionFee));
+                        break;
+                    }
+                    default:
+                        System.err.println("Unknown type student: " + type);
+                }
+            }
+            System.out.println("List of student download from file: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return students;
+    }
 }

@@ -1,2 +1,3 @@
-Score of the certificate: 1, Surname: Zhulina, Name: Nasty, Group: 12p, Department: ID, Subject: Math, Assessmante: 5, Teacher: Yest, Score USE: 67, The average score of the certificate: 4,60
-Score of the certificate: 2, Surname: Me, Name: You, Group: 12, Department: IT, Subject: IKT, Assessmante: 5, Teacher: Class, Score USE: 87, The average score of the certificate: 4,70
+FullTimeStudent;1;Zhulina;Nasty;Group 1;Math;ICT;5;Ternov;90;4.5
+PartTimeStudent;2;Petrov;Petr;VPI12;Computer Technology;Physics;4;Ivanov;GAZ;Engineer;20000.0
+TargetedStudent;3;Testov;Test;33;Testing;TST;3;Ivanov;NPO;15000.0
